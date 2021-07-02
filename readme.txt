@@ -4,20 +4,23 @@ Donate link: https://wemo.tech/
 Tags: block pattern, guternberg
 Requires at least: 5.0
 Tested up to: 5.5
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 You can easily create your own block patterns and register them.
 
+
 == Description ==
 
 You can easily create your own block patterns and register them.
 
+
 = How to use =
 
 From the "Block Patterns" in the admin menu, just assemble the pattern using blocks as you would in a regular post.
+
 
 = If it doesn't work =
 
@@ -35,8 +38,21 @@ This plugin can be installed directly from your site.
 4. Once installed, click the "Activate" link.
 
 
+== Screenshots ==
+
+1. Move to the "Block Patterns" in the admin menu
+2. Edit the "Block Patterns" post.
+3. Search block patterns from regular posts.
+4. Place the block pattern you added.
+
 
 == Changelog ==
-¥
+
+= 1.1.0 =
+Support for WordPress 5.8.
+
+= 1.0.1 =
+Edited the readme.txt.
+
 = 1.0.0 =
 Initial working version.
