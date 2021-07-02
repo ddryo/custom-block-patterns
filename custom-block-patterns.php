@@ -3,9 +3,9 @@
  * Plugin Name: Custom Block Patterns
  * Plugin URI: https://github.com/ddryo/Custom-Block-Patterns
  * Description: You can easily create your own block patterns and register them.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: LOOS, Inc.
- * Author URI: https://loos-web-studio.com/
+ * Author URI: https://loos.co.jp/
  * License: GPL2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: loos-cbp
@@ -14,23 +14,16 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! function_exists( 'register_block_pattern' ) ) return;
 
-/**
- * プラグインディレクトリまでのパス
- */
-define( 'LOOS_CBP_PATH', plugin_dir_path( __FILE__ ) );
-// define( 'LOOS_CBP_URL', plugins_url( '/', __FILE__ ) );
-
-
-/**
- * plugin処理
- */
 add_action( 'plugins_loaded', function() {
+	$cbp_path = plugin_dir_path( __FILE__ );
+
 	// 翻訳ファイルの読み込み
-	$locale = apply_filters( 'plugin_locale', determine_locale(), 'loos-cbp' );
-	load_textdomain( 'loos-cbp', LOOS_CBP_PATH . 'languages/loos-cbp-' . $locale . '.mo' );
+	if ( 'ja' === determine_locale() ) {
+		load_textdomain( 'loos-cbp', $cbp_path . 'languages/loos-cbp-ja.mo' );
+	} else {
+		load_plugin_textdomain( 'loos-cbp' );
+	}
 
-	// add_action( 'enqueue_block_editor_assets', function() {} );
-	require LOOS_CBP_PATH . 'inc/gutenberg.php';
-	require LOOS_CBP_PATH . 'inc/post_type.php';
-
+	require $cbp_path . 'inc/gutenberg.php';
+	require $cbp_path . 'inc/post_type.php';
 } );

@@ -1,9 +1,10 @@
 <?php
-namespace LOOS_CBP;
+namespace LOOS_Inc\CBP;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'init', '\LOOS_CBP\register_block_patterns', 20 );
+add_action( 'init', '\LOOS_Inc\CBP\register_block_patterns', 20 );
+
 
 /**
  * ブロックパターンの登録

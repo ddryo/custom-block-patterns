@@ -1,10 +1,10 @@
 <?php
-namespace LOOS_CBP;
+namespace LOOS_Inc\CBP;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'init', '\LOOS_CBP\cbp_register_post_type', 11 );
-add_action( 'admin_init', '\LOOS_CBP\cbp_admin_init' );
+add_action( 'init', '\LOOS_Inc\CBP\cbp_register_post_type', 11 );
+add_action( 'admin_init', '\LOOS_Inc\CBP\cbp_admin_init' );
 
 
 /**
@@ -31,8 +31,8 @@ function cbp_register_post_type() {
 			'supports'      => [ 'title', 'editor' ],
 		]
 	);
-
 }
+
 
 /**
  * 独自権限を各権限グループに付与する
