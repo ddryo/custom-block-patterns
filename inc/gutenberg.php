@@ -9,8 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'init', __NAMESPACE__ . '\register_block_patterns', 20 );
 function register_block_patterns() {
 
-	if ( ! is_admin() ) return;
-
 	register_block_pattern_category( 'loos-cbp', [
 		'label' => 'CUSTOM BLOCK PATTERNS',
 	] );
