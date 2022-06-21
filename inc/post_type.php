@@ -3,8 +3,8 @@ namespace LOOS_Inc\CBP;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'init', '\LOOS_Inc\CBP\cbp_register_post_type', 11 );
-add_action( 'admin_init', '\LOOS_Inc\CBP\cbp_admin_init' );
+add_action( 'init', __NAMESPACE__ . '\cbp_register_post_type', 11 );
+add_action( 'admin_init', __NAMESPACE__ . '\cbp_admin_init' );
 
 
 /**
@@ -13,7 +13,7 @@ add_action( 'admin_init', '\LOOS_Inc\CBP\cbp_admin_init' );
 function cbp_register_post_type() {
 	$parts_name = __( 'Block Patterns', 'loos-cbp' );
 	register_post_type(
-		'loos-cbp', // 投稿タイプ名の定義
+		LOOS_CBP_PT_SLUG,
 		[
 			'labels'        => [
 				'name'          => $parts_name,
@@ -23,7 +23,7 @@ function cbp_register_post_type() {
 			// 'menu_position' => 6,
 			'show_ui'       => true,
 			'show_in_menu'  => true,
-			'capabilities'  => ['create_posts' => 'create_loos_cbp' ],
+			'capabilities'  => [ 'create_posts' => 'create_loos_cbp' ],
 			'map_meta_cap'  => true, // capabilities を使用するために必要
 			'has_archive'   => false,
 			'menu_icon'     => 'dashicons-screenoptions',

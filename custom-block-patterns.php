@@ -14,6 +14,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! function_exists( 'register_block_pattern' ) ) return;
 
+define( 'LOOS_CBP_PT_SLUG', 'loos-cbp' );
+define( 'LOOS_CBP_TAX_SLUG', 'loos-cbp-category' );
+
 add_action( 'plugins_loaded', function() {
 	$cbp_path = plugin_dir_path( __FILE__ );
 
@@ -26,4 +29,5 @@ add_action( 'plugins_loaded', function() {
 
 	require $cbp_path . 'inc/gutenberg.php';
 	require $cbp_path . 'inc/post_type.php';
+	require $cbp_path . 'inc/taxonomy.php';
 } );

@@ -9,33 +9,59 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'init', __NAMESPACE__ . '\register_block_patterns', 20 );
 function register_block_patterns() {
 
-	register_block_pattern_category( 'loos-cbp', [
-		'label' => 'CUSTOM BLOCK PATTERNS',
+	// パターンカテゴリーのセット
+	register_block_pattern_category(LOOS_CBP_PT_SLUG, [
+		'label' => '[CBP]',
 	] );
+	$all_terms = get_terms( LOOS_CBP_TAX_SLUG );
+	foreach ( $all_terms as $term ) {
+		register_block_pattern_category(
+			LOOS_CBP_PT_SLUG . $term->term_id,
+			[ 'label' => '[CBP] ' . $term->name ]
+		);
+	}
 
+	// カスタムパターン全取得
 	$the_query = new \WP_Query( [
-		'post_type'              => 'loos-cbp',
+		'post_type'              => LOOS_CBP_PT_SLUG,
 		'posts_per_page'         => -1,
 		'no_found_rows'          => true,
-		'update_post_meta_cache' => false,
-		'update_post_term_cache' => false,
 	] );
+	wp_reset_postdata();
 
-	foreach ( $the_query->posts as $parts ) :
-		$pid     = $parts->ID;
+	// デフォルトのビューポートサイズ
+	$viewport = apply_filters( 'loos_cbp_default_viewport_width', 1200 );
+
+	// パターン登録
+	foreach ( $the_query->posts as $parts ) {
+		$pid = $parts->ID;
+
+		// カテゴリーで振り分け
+		$categories = [];
+		$the_terms  = get_the_terms( $pid, LOOS_CBP_TAX_SLUG );
+
+		if ( empty( $the_terms ) ) {
+			$categories = [ LOOS_CBP_PT_SLUG ];
+		} else {
+			foreach ( $the_terms as $term ) {
+				$categories[] = LOOS_CBP_PT_SLUG . $term->term_id;
+			}
+		}
+
+		// パターン登録データ
 		$options = [
-			'title'      => $parts->post_title,
-			'content'    => $parts->post_content,
-			'categories' => [ 'loos-cbp' ],
+			'title'         => $parts->post_title,
+			'content'       => $parts->post_content,
+			'categories'    => $categories,
+			'viewportWidth' => $viewport,
 		];
 
-		$viewport    = apply_filters( 'loos_cbp_viewport_width', 0, $pid );
-		$block_types = apply_filters( 'loos_cbp_block_types', [], $pid );
+		// その他、カスタムフィールドで調整可能なもの
+		// $viewport = apply_filters( 'loos_cbp_viewport_width', 1200, $pid );
+		// $block_types = apply_filters( 'loos_cbp_block_types', [], $pid );
+		// if ( $viewport ) $options['viewportWidth'] = $viewport;
+		// if ( ! empty( $block_types ) ) $options['blockTypes'] = $block_types;
 
-		if ( $viewport ) $options['viewportWidth']            = $viewport;
-		if ( ! empty( $block_types ) ) $options['blockTypes'] = $block_types;
-
-		register_block_pattern( 'loos-cbp/pattern-' . $pid, $options );
-	endforeach;
-	wp_reset_postdata();
+		register_block_pattern( "loos-cbp/pattern-$pid", $options );
+	}
 }
