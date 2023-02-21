@@ -18,6 +18,7 @@ function cbp_register_post_type() {
 			'labels'        => [
 				'name'          => $parts_name,
 				'singular_name' => $parts_name,
+				'add_new' 	=> __( 'Add New', 'loos_cbp' ),
 			],
 			'public'        => false,
 			// 'menu_position' => 6,
