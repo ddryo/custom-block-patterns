@@ -174,6 +174,17 @@
 		 as set in the "Requires at least" tag in the readme.txt file. -->
 	<config name="minimum_supported_wp_version" value="5.0"/>
 
+	<!--
+		WPCS 2.3 PrefixAllGlobalsSniff が PHPCS 設定キー prefixes 未設定時に null を trim() するため PHP 8.1+ で例外になる。
+		空文字を渡すと CLI 上書きなしとして扱われ、ruleset の property prefixes のみが使われる。
+	-->
+	<config name="prefixes" value=""/>
+
+	<!--
+		I18nSniff も text_domain 設定が無いと trim(null) になるため同様に空で定義する。
+	-->
+	<config name="text_domain" value=""/>
+
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
 			<!-- No need to adjust alignment of large arrays when the item with the largest key is removed. -->
